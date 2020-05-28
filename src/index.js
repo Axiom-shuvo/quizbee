@@ -2,6 +2,7 @@ import React,{Component} from "react";
 import ReactDOM from "react-dom";
 import "./assets/style.css";
 import quizService from "./quizService";
+import QuestionBox from "./components/QuestionBox";
 
 
 class QuizBee extends Component{
@@ -31,7 +32,11 @@ class QuizBee extends Component{
                 <div className="title" >QuizBee</div>
                 { this.state.questionBank.length > 0 &&
                   this.state.questionBank.map(
-                      ( { question,ansers,correct,questionId } ) => <h4>{question}</h4> 
+                      ( { question,answers,correct,questionId } ) => (
+                        <QuestionBox question={question} options={answers} key={questionId}
+                            selected={answer => this.computeAnswer(answer , correct ) }
+                        /> 
+                      ) 
                     )}
             </div>
         )
