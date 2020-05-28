@@ -8,7 +8,8 @@ import QuestionBox from "./components/QuestionBox";
 class QuizBee extends Component{
 
     state={
-        questionBank: []
+        questionBank: [],
+        score: 0
     };
 
     getQuestions= () => {
@@ -19,6 +20,17 @@ class QuizBee extends Component{
                 })
             }
         )
+    }
+
+    computeAnswer = (answer , correctAnser) => {
+        if (answer === correctAnser){
+            this.setState({
+                score: this.state.score + 1
+            })
+        }
+        this.setState({
+            responses: this.state.responses < 5 ? this.state.responses + 1 : 5
+        })
     }
 
     componentDidMount(){
@@ -37,7 +49,10 @@ class QuizBee extends Component{
                             selected={answer => this.computeAnswer(answer , correct ) }
                         /> 
                       ) 
-                    )}
+                )}
+
+                      {this.state.responses === 5 ? (<h2>{this.state.score}</h2> : null ) }
+
             </div>
         )
     }
